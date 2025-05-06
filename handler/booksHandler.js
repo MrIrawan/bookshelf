@@ -36,5 +36,19 @@ async function getUnfinishedBooks(req, res) {
     });
 }
 
+async function getBookById(req, res) {
+    const id = req.params.id;
 
-module.exports = { getAllBooks, getFinishedBooks, getUnfinishedBooks };
+    const db = await connectDb();
+    const collection = db.collection('perpustakaan');
+
+    const bookById = await collection.find({ id: id }).toArray();
+    res.status(200).send({
+        status: true,
+        message: 'success get book by id',
+        data: bookById
+    });
+}
+
+
+module.exports = { getAllBooks, getFinishedBooks, getUnfinishedBooks, getBookById };
