@@ -1,4 +1,5 @@
 const connectDb = require('../db');
+const { nanoid } = require('nanoid');
 
 async function storeHandler(req, res) {
     const book = req.body;
@@ -19,6 +20,7 @@ async function storeHandler(req, res) {
         });
     }
 
+    const bookID = nanoid(18);
 
     const finished = book.pageCount === book.readPage;
     const remainingPage = book.pageCount - book.readPage;
@@ -27,6 +29,7 @@ async function storeHandler(req, res) {
     book.remainingPage = remainingPage;
 
     const bookSchema = {
+        id: bookID,
         title: book.title,
         author: book.author,
         year: book.year,
