@@ -10,6 +10,8 @@ async function storeHandler(req, res) {
         });
     }
 
+    if (!book.readPage || !book.pageCount) res.status(400).send({ status: "fail", message: "book page count and your read page is required!" })
+
     if (book.readPage > book.pageCount) {
         return res.status(400).send({ 
             status: 'fail',
